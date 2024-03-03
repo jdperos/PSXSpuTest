@@ -388,7 +388,6 @@ uint32_t strlen( const char* in_String )
 // Formatting constants
 constexpr uint32_t LINE_SPACING = 16;
 constexpr uint32_t INDENTATION = 16;
-constexpr uint8_t  ALIGNMENT = 20;
 
 //------------------------------------------------------------------------------------------------------------
 void HelloScene::frame()
@@ -424,17 +423,7 @@ void HelloScene::frame()
         psyqo::Vertex Position;
         Position.x = INDENTATION;
         Position.y = LINE_SPACING * ( i + 1 );
-        const uint8_t ParameterNameLength = strlen( ParameterName );
-        const uint8_t NumSpacesForAlignment = ALIGNMENT - ParameterNameLength;
-        char Spacer[ALIGNMENT];
-        for( uint8_t i = 0; i < NumSpacesForAlignment; i++ )
-        {
-            Spacer[i] = ' ';
-        }
-        Spacer[NumSpacesForAlignment] = '\0';
-        char Message[32];
-        sprintf( Message, "%s %s %s 0x%02X", Prefix, ParameterName, Spacer, ParameterValue );
-        hello.m_font.print(hello.gpu(), Message, Position, c);
+        hello.m_font.printf(hello.gpu(), Position, c, "%s %-25s 0x%02X", Prefix, ParameterName, ParameterValue );
     }
 }
 
